@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "program1_backend": {
+      "candid": "src/program1_backend/program1_backend.did",
+      "package": "program1_backend",
+      "type": "rust"
+    },
+    "program1_frontend": {
+      "dependencies": [
+        "program1_backend"
+      ],
+      "source": [
+        "src/program1_frontend/assets"
+      ],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}

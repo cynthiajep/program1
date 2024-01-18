@@ -1,0 +1,28 @@
+type Choice = variant { Approve; Pass; Reject };
+type CreateProposal = record { description : text; is_active : bool };
+type Proposal = record {
+  id : nat64;
+  reject : nat32;
+  owner : principal;
+  voted : vec principal;
+  pass : nat32;
+  approve : nat32;
+  description : text;
+  is_active : bool;
+};
+type Result = variant { Ok; Err : VoteError };
+type VoteError = variant {
+  AlreadyVoted;
+  UpdateError : text;
+  ProposalIsNotActive;
+  AccessRejected;
+  NoSuchProposal;
+};
+service : {
+  create_proposal : (CreateProposal) -> (opt Proposal);
+  edit_proposal : (nat64, CreateProposal) -> (Result);
+  end_proposal : (nat64) -> (Result);
+  get_proposal : (nat64) -> (opt Proposal) query;
+  get_proposal_count : () -> (nat64) query;
+  vote : (nat64, Choice) -> (Result);
+}
